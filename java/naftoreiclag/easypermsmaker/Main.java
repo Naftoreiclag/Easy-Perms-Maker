@@ -29,7 +29,7 @@ public class Main
 			{
 				try
 				{
-					ProgramWindow programWindow = new ProgramWindow("Easy Perms Maker");
+					ProgramWindow programWindow = new ProgramWindow();
 					programWindow.setVisible(true);
 				}
 				catch (Exception e)

@@ -3,96 +3,107 @@ package naftoreiclag.easypermsmaker;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import java.awt.FlowLayout;
-
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
 
-import javax.swing.BoxLayout;
-
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.GridLayout;
-
-import javax.swing.SwingConstants;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-
-import java.awt.Component;
-
-import javax.swing.Box;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.SpringLayout;
 
 @SuppressWarnings("serial")
 public class ProgramWindow extends JFrame
 {
-	private JPanel mainPane;
-	private ImageIcon icon_controls;
-	private ImageIcon icon_classes;
-	private ImageIcon icon_permissions;
-	private ImageIcon icon_users;
+	public final JPanel mainPanel;
+	
+	public final JTabbedPane tabHolder;
+	public final JPanel tab_controls;
+	public final JPanel tab_classes;
+	public final JPanel tab_permissions;
+	public final JPanel tab_users;
+	
+	public final ImageIcon icon_controls;
+	public final ImageIcon icon_classes;
+	public final ImageIcon icon_permissions;
+	public final ImageIcon icon_users;
 
-	/**
-	 * Create the frame.
-	 */
-	public ProgramWindow(String displayName)
+	public ProgramWindow()
 	{
-		super(displayName);
+		// SET UP THE WINDOW
+		// =================
 		
+		// Set the display name
+		super("Easy Perms Maker");
+		
+		// Close when we click the X
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		mainPane = new JPanel();
-		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(mainPane);
-		mainPane.setLayout(new BorderLayout(0, 0));
 		
+		// Default size
+		setBounds(100, 100, 450, 300);
+		
+		// Make a new panel
+		mainPanel = new JPanel();
+		
+		// Make stuff in the panel fit to max size
+		mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		mainPanel.setLayout(new BorderLayout(0, 0));
+		
+		// This panel is now the main content provider
+		setContentPane(mainPanel);
+		
+		// LOAD BEAUTIFUL ICONS
+		// ====================
+		
+		// Load our cool icons
 		icon_controls = new ImageIcon("resources/images/preferences-desktop.png", null);
 		icon_classes = new ImageIcon("resources/images/preferences-system-windows.png", null);
 		icon_permissions = new ImageIcon("resources/images/accessories-text-editor.png", null);
 		icon_users = new ImageIcon("resources/images/system-users.png", null);
 		
-		JTabbedPane mainTabs = new JTabbedPane(JTabbedPane.TOP);
-		mainTabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-		mainPane.add(mainTabs);
+		// SET UP TABS
+		// ===========
 		
-		JPanel controlsPanel = new JPanel();
-		mainTabs.addTab(null, icon_controls, controlsPanel, null);
-		controlsPanel.setBackground(new Color(0xC8DDF2));
-		controlsPanel.setToolTipText("Controls");
-		controlsPanel.setLayout(new SpringLayout());
-
-		for(int i = 0; i < 4; i++)
-		{
-			JButton butt = new JButton(Integer.toString(i));
-			controlsPanel.add(butt);
-		}
+		// Set up the tabs
+		tabHolder = new JTabbedPane(JTabbedPane.TOP);
 		
-		SpringUtilities.makeCompactGrid(controlsPanel, 2, 2, 5, 5, 5, 5);
+		// We always want the tabs to be horizontal
+		tabHolder.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
-		JPanel classesPanel = new JPanel();
-		classesPanel.setToolTipText("Classes");
-		mainTabs.addTab(null, icon_classes, classesPanel, null);
-		classesPanel.setLayout(new SpringLayout());
+		// Add these tabs to the main panel
+		mainPanel.add(tabHolder);
 		
-		JPanel permissionsPanel = new JPanel();
-		permissionsPanel.setToolTipText("Class Permissions");
-		mainTabs.addTab(null, icon_permissions, permissionsPanel, null);
-		permissionsPanel.setLayout(new BorderLayout(0, 0));
+		// CONTROLS PANEL TAB
+		// ==================
 		
-		JPanel usersPanel = new JPanel();
-		usersPanel.setToolTipText("Users");
-		mainTabs.addTab(null, icon_users, usersPanel, null);
-		usersPanel.setLayout(new BorderLayout(0, 0));
+		// Make a new panel and add it to our tabs
+		tab_controls = new JPanel();
+		tabHolder.addTab(null, icon_controls, tab_controls, null);
+		
+		// Add tool tip text (This doesn't work?)
+		tab_controls.setToolTipText("Controls");
+		
+		// Set up layout
+		tab_controls.setLayout(new SpringLayout());
+		
+		tab_controls.add(new JLabel("Permissions Plugin:"));
+		
+		SpringUtilities.makeCompactGrid(tab_controls, 2, 2, 5, 5, 5, 5);
+		
+		tab_classes = new JPanel();
+		tab_classes.setToolTipText("Classes");
+		tabHolder.addTab(null, icon_classes, tab_classes, null);
+		tab_classes.setLayout(new SpringLayout());
+		
+		tab_permissions = new JPanel();
+		tab_permissions.setToolTipText("Class Permissions");
+		tabHolder.addTab(null, icon_permissions, tab_permissions, null);
+		tab_permissions.setLayout(new BorderLayout(0, 0));
+		
+		tab_users = new JPanel();
+		tab_users.setToolTipText("Users");
+		tabHolder.addTab(null, icon_users, tab_users, null);
+		tab_users.setLayout(new BorderLayout(0, 0));
 	}
 
 }
