@@ -19,10 +19,10 @@ import javax.swing.BoxLayout;
 public class ProgramWindow extends JFrame
 {
 	private JPanel mainPane;
-	private ImageIcon icon_gear;
-	private ImageIcon icon_tree;
-	private ImageIcon icon_classEdit;
-	private ImageIcon icon_user;
+	private ImageIcon icon_controls;
+	private ImageIcon icon_classes;
+	private ImageIcon icon_permissions;
+	private ImageIcon icon_users;
 
 	/**
 	 * Create the frame.
@@ -38,7 +38,10 @@ public class ProgramWindow extends JFrame
 		setContentPane(mainPane);
 		mainPane.setLayout(new BorderLayout(0, 0));
 		
-		ImageIcon icon_gear = new ImageIcon("resources/images/applications-system.png", null);
+		icon_controls = new ImageIcon("resources/images/preferences-desktop.png", null);
+		icon_classes = new ImageIcon("resources/images/preferences-system-windows.png", null);
+		icon_permissions = new ImageIcon("resources/images/accessories-text-editor.png", null);
+		icon_users = new ImageIcon("resources/images/system-users.png", null);
 		
 		JTabbedPane mainTabs = new JTabbedPane(JTabbedPane.TOP);
 		mainTabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -46,7 +49,7 @@ public class ProgramWindow extends JFrame
 		
 		JPanel tab1 = new JPanel();
 		tab1.setToolTipText("Controls");
-		mainTabs.addTab(null, icon_gear, tab1, null);
+		mainTabs.addTab(null, icon_controls, tab1, null);
 		
 		JPanel tab2 = new JPanel();
 		mainTabs.addTab("New tab", null, tab2, null);
