@@ -5,10 +5,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -50,6 +53,8 @@ public class Main extends JFrame
 	public final JPanel tab_mirrors;
 	
 	public final JComboBox<String> combo_exportSelection;
+	public final JTextField field_plugDir;
+	public final JButton butt_browsePlugDir;
 	
 	public static ImageIcon icon_controls;
 	public static ImageIcon icon_classes;
@@ -108,12 +113,27 @@ public class Main extends JFrame
 		// Set up layout
 		tab_controls.setLayout(new SpringLayout());
 		
-		// Server selection
-		tab_controls.add(new JLabel("Plugins Folder:"));
+		// Plugin directory prompt -----------
 		tab_controls.add(new JLabel("Plugins Folder:"));
 		
+		// Plugin directory selection box
+		Box plugDirSelContainer = Box.createHorizontalBox();
 		
-		// Permissions selection interface
+		// Field where we put stuff
+		field_plugDir = new JTextField("aaaaa");
+		plugDirSelContainer.add(field_plugDir);
+		
+		// Make a new button for browsing
+		butt_browsePlugDir = new JButton("Browse...");
+		plugDirSelContainer.add(butt_browsePlugDir);
+		
+		// Set the max size
+		plugDirSelContainer.setMaximumSize(new Dimension(9999999, plugDirSelContainer.getPreferredSize().height));
+		
+		// Add this to the controls
+		tab_controls.add(plugDirSelContainer);
+		
+		// Permissions selection prompt -------
 		tab_controls.add(new JLabel("Permissions Plugin:"));
 
 		// Combo selection
@@ -123,11 +143,14 @@ public class Main extends JFrame
 		combo_exportSelection.setMaximumSize(combo_exportSelection.getPreferredSize());
 		tab_controls.add(combo_exportSelection);
 		
-		//
-		//tab_controls.add(new JLabel("Permissions Plugin:"));
+		// Status prompt
+		tab_controls.add(new JLabel("Status:"));
+		
+		
+		tab_controls.add(new JLabel("Perfect!"));
 		
 		//
-		SpringUtilities.makeCompactGrid(tab_controls, 2, 2, 15, 15, 15, 5);
+		SpringUtilities.makeCompactGrid(tab_controls, 3, 2, 15, 15, 15, 5);
 
 
 		// WORLD SELECTION TAB
