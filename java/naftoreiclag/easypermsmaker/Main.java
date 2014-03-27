@@ -1,5 +1,6 @@
 package naftoreiclag.easypermsmaker;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,10 +13,16 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.SpringLayout;
 
+import naftoreiclag.easypermsmaker.customswings.JPanelTextured;
+
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 //I named this class "Main" just so java newbies can find the
 //main method faster! Aren't I so nice? :)
@@ -33,10 +40,12 @@ public class Main extends JFrame
 	public final JPanel tab_permissions;
 	public final JPanel tab_users;
 	
-	public final ImageIcon icon_controls;
-	public final ImageIcon icon_classes;
-	public final ImageIcon icon_permissions;
-	public final ImageIcon icon_users;
+	public static ImageIcon icon_controls;
+	public static ImageIcon icon_classes;
+	public static ImageIcon icon_permissions;
+	public static ImageIcon icon_users;
+	
+	public static Image img_wallpaper;
 
 	public Main()
 	{
@@ -53,7 +62,7 @@ public class Main extends JFrame
 		setBounds(100, 100, 450, 300);
 		
 		// Make a new panel
-		mainPanel = new JPanel();
+		mainPanel = new JPanelTextured(img_wallpaper);
 		//mainPanel.setBackground(new Color(0x6D89BC));
 		
 		// Make stuff in the panel fit to max size
@@ -62,15 +71,6 @@ public class Main extends JFrame
 		
 		// This panel is now the main content provider
 		setContentPane(mainPanel);
-		
-		// LOAD BEAUTIFUL ICONS
-		// ====================
-		
-		// Load our cool icons
-		icon_controls = new ImageIcon("resources/images/preferences-desktop.png", null);
-		icon_classes = new ImageIcon("resources/images/preferences-system-windows.png", null);
-		icon_permissions = new ImageIcon("resources/images/accessories-text-editor.png", null);
-		icon_users = new ImageIcon("resources/images/system-users.png", null);
 		
 		// SET UP TABS
 		// ===========
@@ -130,6 +130,24 @@ public class Main extends JFrame
 		tabHolder.addTab(null, icon_users, tab_users, "Users");
 		tab_users.setLayout(new BorderLayout(0, 0));
 	}
+	
+	// Load our pretty images
+	private static void loadImagesAndIcons()
+	{
+		icon_controls = new ImageIcon("resources/images/preferences-desktop.png", null);
+		icon_classes = new ImageIcon("resources/images/preferences-system-windows.png", null);
+		icon_permissions = new ImageIcon("resources/images/accessories-text-editor.png", null);
+		icon_users = new ImageIcon("resources/images/system-users.png", null);
+		
+		try
+		{
+			img_wallpaper = ImageIO.read(new File("resources/images/wallpaper.png"));
+		}
+		catch (IOException e)
+		{
+			System.err.println("Could not load the wallpaper image!");
+		}
+	}
 
 	// Set the LAF to something that looks cool
 	private static void setupLAF()
@@ -159,6 +177,7 @@ public class Main extends JFrame
 	public static void main(String args[])
 	{
 		// Make it look cool
+		loadImagesAndIcons();
 		setupLAF();
 		
 		// Do this stuff later (which in java-ese it means that we do it almost now)
