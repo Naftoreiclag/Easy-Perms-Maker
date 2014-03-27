@@ -1,10 +1,10 @@
 package naftoreiclag.easypermsmaker.exportcode;
 
-public abstract class AbstractExportType
+public abstract class AbstractExport
 {
 	public final String name;
 	
-	public AbstractExportType(String pluginVerison)
+	public AbstractExport(String pluginVerison)
 	{
 		this.name = pluginVerison;
 	}

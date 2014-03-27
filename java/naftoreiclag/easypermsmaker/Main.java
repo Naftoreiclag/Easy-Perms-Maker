@@ -12,12 +12,14 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.SpringLayout;
 
 import naftoreiclag.easypermsmaker.customswings.JPanelTextured;
+import naftoreiclag.easypermsmaker.utilities.SpringUtilities;
 
 import java.awt.Color;
 import java.io.File;
@@ -32,6 +34,8 @@ public class Main extends JFrame
 {
 	public static boolean isNimbus;
 	
+	public static final String dir_images = "resources/images/";
+	
 	public final JPanel mainPanel;
 	
 	public final JTabbedPane tabHolder;
@@ -39,6 +43,8 @@ public class Main extends JFrame
 	public final JPanel tab_classes;
 	public final JPanel tab_permissions;
 	public final JPanel tab_users;
+	
+	public final JComboBox<String> combo_exportSelection;
 	
 	public static ImageIcon icon_controls;
 	public static ImageIcon icon_classes;
@@ -53,7 +59,7 @@ public class Main extends JFrame
 		// =================
 		
 		// Set the display name
-		super("Easy Perms Maker");
+		super("Naftoreiclag's Easy Perms Maker");
 		
 		// Close when we click the X
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,29 +100,21 @@ public class Main extends JFrame
 		// Set up layout
 		tab_controls.setLayout(new SpringLayout());
 		
-		tab_controls.add(new JLabel("Permissions Plugin:"));
-		String[] options = { "foo", "bar", "quux", "dylan", "seven" };
-
-		//Create the combo box, select item at index 4.
-		//Indices start at 0, so 4 specifies the pig.
-		JComboBox jcombo1 = new JComboBox(options);
-		jcombo1.setSelectedIndex(3);
-		jcombo1.setMaximumSize(jcombo1.getPreferredSize());
-		
-		tab_controls.add(jcombo1);
-		
+		// Permissions selection interface
 		tab_controls.add(new JLabel("Permissions Plugin:"));
 
-		//Create the combo box, select item at index 4.
-		//Indices start at 0, so 4 specifies the pig.
-		JComboBox jcombo2 = new JComboBox(options);
-		jcombo2.setSelectedIndex(3);
-		jcombo2.setMaximumSize(jcombo2.getPreferredSize());
+		// Combo selection
+		combo_exportSelection = new JComboBox<String>(ExportCodeDatabase.getComboBoxSelectionStuff());
+		combo_exportSelection.setSelectedIndex(0);
+		combo_exportSelection.setPreferredSize(new Dimension(200, combo_exportSelection.getPreferredSize().height));
+		combo_exportSelection.setMaximumSize(combo_exportSelection.getPreferredSize());
+		tab_controls.add(combo_exportSelection);
 		
-		tab_controls.add(jcombo2);
+		//
+		tab_controls.add(new JLabel("Permissions Plugin:"));
 		
-		
-		SpringUtilities.makeCompactGrid(tab_controls, 2, 2, 5, 5, 5, 5);
+		//
+		SpringUtilities.makeCompactGrid(tab_controls, 1, 2, 15, 5, 5, 5);
 		
 		tab_classes = new JPanel();
 		tabHolder.addTab(null, icon_classes, tab_classes, "Classes");
@@ -131,6 +129,9 @@ public class Main extends JFrame
 		tab_users.setLayout(new BorderLayout(0, 0));
 	}
 	
+	//
+	
+	
 	// Load our pretty images
 	private static void loadImagesAndIcons()
 	{
@@ -139,18 +140,27 @@ public class Main extends JFrame
 		icon_permissions = new ImageIcon("resources/images/accessories-text-editor.png", null);
 		icon_users = new ImageIcon("resources/images/system-users.png", null);
 		
+		img_wallpaper = loadImageWithComplaints("wallpaper.png");
+	}
+	
+	// Auxilary method for loading images with "handled" errors
+	private static Image loadImageWithComplaints(String filename)
+	{
+		Image returnVal = null;
 		try
 		{
-			img_wallpaper = ImageIO.read(new File("resources/images/wallpaper.png"));
+			returnVal = ImageIO.read(new File(dir_images + filename));
 		}
 		catch (IOException e)
 		{
-			System.err.println("Could not load the wallpaper image!");
+			System.err.println("Could not load image: " + filename);
 		}
+		
+		return returnVal;
 	}
 
 	// Set the LAF to something that looks cool
-	private static void setupLAF()
+	private static void setupLookAndFeel()
 	{
 		// Try set it to nimbus
 		try
@@ -176,9 +186,12 @@ public class Main extends JFrame
 	// This is where the magic begins
 	public static void main(String args[])
 	{
+		// Load export types
+		ExportCodeDatabase.registerTypes();
+		
 		// Make it look cool
 		loadImagesAndIcons();
-		setupLAF();
+		setupLookAndFeel();
 		
 		// Do this stuff later (which in java-ese it means that we do it almost now)
 		EventQueue.invokeLater(new Runnable()

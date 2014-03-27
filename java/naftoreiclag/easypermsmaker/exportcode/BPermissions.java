@@ -1,6 +1,6 @@
 package naftoreiclag.easypermsmaker.exportcode;
 
-public class BPermissions extends AbstractExportType
+public class BPermissions extends AbstractExport
 {
 	public BPermissions()
 	{
