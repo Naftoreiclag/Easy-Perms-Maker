@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.SpringLayout;
@@ -25,6 +27,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Enumeration;
 
 //I named this class "Main" just so java newbies can find the
 //main method faster! Aren't I so nice? :)
@@ -111,7 +114,7 @@ public class Main extends JFrame
 		tab_controls.add(combo_exportSelection);
 		
 		//
-		tab_controls.add(new JLabel("Permissions Plugin:"));
+		//tab_controls.add(new JLabel("Permissions Plugin:"));
 		
 		//
 		SpringUtilities.makeCompactGrid(tab_controls, 1, 2, 15, 5, 5, 5);
@@ -128,10 +131,7 @@ public class Main extends JFrame
 		tabHolder.addTab(null, icon_users, tab_users, "Users");
 		tab_users.setLayout(new BorderLayout(0, 0));
 	}
-	
-	//
-	
-	
+
 	// Load our pretty images
 	private static void loadImagesAndIcons()
 	{
@@ -192,6 +192,7 @@ public class Main extends JFrame
 		// Make it look cool
 		loadImagesAndIcons();
 		setupLookAndFeel();
+		UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Arial", Font.PLAIN, 20));
 		
 		// Do this stuff later (which in java-ese it means that we do it almost now)
 		EventQueue.invokeLater(new Runnable()
