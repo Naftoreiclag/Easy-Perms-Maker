@@ -46,6 +46,8 @@ public class Main extends JFrame
 	public final JPanel tab_classes;
 	public final JPanel tab_permissions;
 	public final JPanel tab_users;
+	public final JPanel tab_worlds;
+	public final JPanel tab_mirrors;
 	
 	public final JComboBox<String> combo_exportSelection;
 	
@@ -53,6 +55,8 @@ public class Main extends JFrame
 	public static ImageIcon icon_classes;
 	public static ImageIcon icon_permissions;
 	public static ImageIcon icon_users;
+	public static ImageIcon icon_worlds;
+	public static ImageIcon icon_mirrors;
 	
 	public static Image img_wallpaper;
 
@@ -93,6 +97,7 @@ public class Main extends JFrame
 		// Add these tabs to the main panel
 		mainPanel.add(tabHolder);
 		
+		
 		// CONTROLS PANEL TAB
 		// ==================
 		
@@ -102,6 +107,11 @@ public class Main extends JFrame
 		
 		// Set up layout
 		tab_controls.setLayout(new SpringLayout());
+		
+		// Server selection
+		tab_controls.add(new JLabel("Plugins Folder:"));
+		tab_controls.add(new JLabel("Plugins Folder:"));
+		
 		
 		// Permissions selection interface
 		tab_controls.add(new JLabel("Permissions Plugin:"));
@@ -117,7 +127,15 @@ public class Main extends JFrame
 		//tab_controls.add(new JLabel("Permissions Plugin:"));
 		
 		//
-		SpringUtilities.makeCompactGrid(tab_controls, 1, 2, 15, 5, 5, 5);
+		SpringUtilities.makeCompactGrid(tab_controls, 2, 2, 15, 15, 15, 5);
+
+
+		// WORLD SELECTION TAB
+		// ===================
+		
+		tab_worlds = new JPanel();
+		tabHolder.addTab(null, icon_worlds, tab_worlds, "World Selection");
+		tab_worlds.setLayout(new BorderLayout(0, 0));
 		
 		tab_classes = new JPanel();
 		tabHolder.addTab(null, icon_classes, tab_classes, "Classes");
@@ -130,15 +148,21 @@ public class Main extends JFrame
 		tab_users = new JPanel();
 		tabHolder.addTab(null, icon_users, tab_users, "Users");
 		tab_users.setLayout(new BorderLayout(0, 0));
+		
+		tab_mirrors = new JPanel();
+		tabHolder.addTab(null, icon_mirrors, tab_mirrors, "Mirroring");
+		tab_mirrors.setLayout(new BorderLayout(0, 0));
 	}
 
 	// Load our pretty images
 	private static void loadImagesAndIcons()
 	{
-		icon_controls = new ImageIcon("resources/images/preferences-desktop.png", null);
-		icon_classes = new ImageIcon("resources/images/preferences-system-windows.png", null);
-		icon_permissions = new ImageIcon("resources/images/accessories-text-editor.png", null);
-		icon_users = new ImageIcon("resources/images/system-users.png", null);
+		icon_controls = loadIcon("preferences-desktop.png");
+		icon_classes = loadIcon("preferences-system-windows.png");
+		icon_permissions = loadIcon("accessories-text-editor.png");
+		icon_users = loadIcon("system-users.png");
+		icon_worlds = loadIcon("internet-web-browser.png");
+		icon_mirrors = loadIcon("system-software-update.png");
 		
 		img_wallpaper = loadImageWithComplaints("wallpaper.png");
 	}
@@ -158,6 +182,17 @@ public class Main extends JFrame
 		
 		return returnVal;
 	}
+	
+	// Auxilary method for loading icons
+	private static ImageIcon loadIcon(String filename)
+	{
+		ImageIcon returnVal = null;
+		
+		returnVal = new ImageIcon(dir_images + filename, null);
+		
+		return returnVal;
+	}
+	
 
 	// Set the LAF to something that looks cool
 	private static void setupLookAndFeel()
