@@ -55,6 +55,7 @@ public class Main extends JFrame
 	public final JComboBox<String> combo_exportSelection;
 	public final JTextField field_plugDir;
 	public final JButton butt_browsePlugDir;
+	public final JLabel label_exportStatus;
 	
 	public static ImageIcon icon_controls;
 	public static ImageIcon icon_classes;
@@ -146,8 +147,11 @@ public class Main extends JFrame
 		// Status prompt
 		tab_controls.add(new JLabel("Status:"));
 		
+		label_exportStatus = new JLabel();
+		tab_controls.add(label_exportStatus);
 		
-		tab_controls.add(new JLabel("Perfect!"));
+		label_exportStatus.setForeground(Color.RED);
+		label_exportStatus.setText("NO PLUGIN FOLDER SELECTED");
 		
 		//
 		SpringUtilities.makeCompactGrid(tab_controls, 3, 2, 15, 15, 15, 5);
