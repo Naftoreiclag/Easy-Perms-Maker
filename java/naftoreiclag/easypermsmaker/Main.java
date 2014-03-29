@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -23,6 +24,7 @@ import java.awt.Image;
 
 import javax.swing.SpringLayout;
 
+import naftoreiclag.easypermsmaker.customswings.ClassNodePanel;
 import naftoreiclag.easypermsmaker.customswings.JPanelTextured;
 import naftoreiclag.easypermsmaker.utilities.SpringUtilities;
 
@@ -56,6 +58,7 @@ public class Main extends JFrame
 	public final JTextField field_plugDir;
 	public final JButton butt_browsePlugDir;
 	public final JLabel label_exportStatus;
+	public final JComboBox<String> combo_worldSelection;
 	
 	public static ImageIcon icon_controls;
 	public static ImageIcon icon_classes;
@@ -65,6 +68,7 @@ public class Main extends JFrame
 	public static ImageIcon icon_mirrors;
 	
 	public static Image img_wallpaper;
+	public static Image img_nodeback;
 
 	public Main()
 	{
@@ -75,10 +79,13 @@ public class Main extends JFrame
 		super("Naftoreiclag's Easy Perms Maker");
 		
 		// Close when we click the X
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Default size
-		setBounds(100, 100, 450, 300);
+		this.setBounds(0, 0, 800, 600);
+		
+		// Move to the middle
+		this.setLocationRelativeTo(null);
 		
 		// Make a new panel
 		mainPanel = new JPanelTextured(img_wallpaper);
@@ -89,7 +96,7 @@ public class Main extends JFrame
 		mainPanel.setLayout(new BorderLayout(0, 0));
 		
 		// This panel is now the main content provider
-		setContentPane(mainPanel);
+		this.setContentPane(mainPanel);
 		
 		// SET UP TABS
 		// ===========
@@ -103,24 +110,35 @@ public class Main extends JFrame
 		// Add these tabs to the main panel
 		mainPanel.add(tabHolder);
 		
+		// Create tabs
+		tab_controls = new JPanel();
+		tab_worlds = new JPanel();
+		tab_classes = new JPanel();
+		tab_permissions = new JPanel();
+		tab_users = new JPanel();
+		tab_mirrors = new JPanel();
+		
+		// Add them to our object
+		tabHolder.addTab(null, icon_controls, tab_controls, "Controls");
+		tabHolder.addTab(null, icon_worlds, tab_worlds, "World Selection");
+		tabHolder.addTab(null, icon_classes, tab_classes, "Classes");
+		tabHolder.addTab(null, icon_permissions, tab_permissions, "Class Permissions");
+		tabHolder.addTab(null, icon_users, tab_users, "Users");
+		tabHolder.addTab(null, icon_mirrors, tab_mirrors, "Mirroring");
 		
 		// CONTROLS PANEL TAB
 		// ==================
 		
-		// Make a new panel and add it to our tabs
-		tab_controls = new JPanel();
-		tabHolder.addTab(null, icon_controls, tab_controls, "Controls");
-		
 		// Set up layout
 		tab_controls.setLayout(new SpringLayout());
 		
-		// Plugin directory prompt -----------
+		// Plugin directory prompt --------------------------------
 		tab_controls.add(new JLabel("Plugins Folder:"));
 		
 		// Plugin directory selection box
 		Box plugDirSelContainer = Box.createHorizontalBox();
 		
-		// Field where we put stuff
+		// Field where we put stuff -----------------------------------------
 		field_plugDir = new JTextField("aaaaa");
 		plugDirSelContainer.add(field_plugDir);
 		
@@ -134,51 +152,72 @@ public class Main extends JFrame
 		// Add this to the controls
 		tab_controls.add(plugDirSelContainer);
 		
-		// Permissions selection prompt -------
+		// Permissions selection prompt -----------------------------------------
 		tab_controls.add(new JLabel("Permissions Plugin:"));
 
-		// Combo selection
+		// Combo selection ------------------------------------------------------
 		combo_exportSelection = new JComboBox<String>(ExportCodeDatabase.getComboBoxSelectionStuff());
 		combo_exportSelection.setSelectedIndex(0);
 		combo_exportSelection.setPreferredSize(new Dimension(200, combo_exportSelection.getPreferredSize().height));
 		combo_exportSelection.setMaximumSize(combo_exportSelection.getPreferredSize());
 		tab_controls.add(combo_exportSelection);
 		
-		// Status prompt
+		// Status prompt --------------------------------------------------
 		tab_controls.add(new JLabel("Status:"));
 		
+		// Status --------------------------------------------------
 		label_exportStatus = new JLabel();
 		tab_controls.add(label_exportStatus);
 		
 		label_exportStatus.setForeground(Color.RED);
 		label_exportStatus.setText("NO PLUGIN FOLDER SELECTED");
 		
-		//
+		// Sort our things into a nice grid
 		SpringUtilities.makeCompactGrid(tab_controls, 3, 2, 15, 15, 15, 5);
-
 
 		// WORLD SELECTION TAB
 		// ===================
 		
-		tab_worlds = new JPanel();
-		tabHolder.addTab(null, icon_worlds, tab_worlds, "World Selection");
-		tab_worlds.setLayout(new BorderLayout(0, 0));
+		// Set up layout
+		tab_worlds.setLayout(new SpringLayout());
+
+		// World selection prompt --------------------------------
+		tab_worlds.add(new JLabel("Select a World:"));
 		
-		tab_classes = new JPanel();
-		tabHolder.addTab(null, icon_classes, tab_classes, "Classes");
-		tab_classes.setLayout(new SpringLayout());
+		// World combo box ---------------------------
 		
-		tab_permissions = new JPanel();
-		tabHolder.addTab(null, icon_permissions, tab_permissions, "Class Permissions");
-		tab_permissions.setLayout(new BorderLayout(0, 0));
+		combo_worldSelection = new JComboBox<String>(ExportCodeDatabase.getComboBoxSelectionStuff());
+		combo_worldSelection.setSelectedIndex(0);
+		combo_worldSelection.setPreferredSize(new Dimension(200, combo_worldSelection.getPreferredSize().height));
+		combo_worldSelection.setMaximumSize(combo_worldSelection.getPreferredSize());
+		tab_worlds.add(combo_worldSelection);
+
+		// Sort our things into a nice grid
+		SpringUtilities.makeCompactGrid(tab_worlds, 1, 2, 15, 15, 15, 5);
 		
-		tab_users = new JPanel();
-		tabHolder.addTab(null, icon_users, tab_users, "Users");
-		tab_users.setLayout(new BorderLayout(0, 0));
+		// CLASS EDITOR TAB
+		// ================
 		
-		tab_mirrors = new JPanel();
-		tabHolder.addTab(null, icon_mirrors, tab_mirrors, "Mirroring");
-		tab_mirrors.setLayout(new BorderLayout(0, 0));
+		// Set up layout
+		tab_classes.setLayout(new BorderLayout(0, 0));
+		
+		
+		SpringUtilities.makeCompactGrid(tab_classes, 1, 2, 15, 15, 15, 5);
+		
+		// Set up class settings panel
+		JPanel classSettings = new JPanel();
+		classSettings.setLayout(new SpringLayout());
+		
+		
+		JPanel nodeEditor = new ClassNodePanel(img_nodeback);
+		
+		//
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, classSettings, nodeEditor);
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation(150);
+		
+		tab_classes.add(splitPane);
+
 	}
 
 	// Load our pretty images
@@ -192,6 +231,7 @@ public class Main extends JFrame
 		icon_mirrors = loadIcon("system-software-update.png");
 		
 		img_wallpaper = loadImageWithComplaints("wallpaper.png");
+		img_nodeback = loadImageWithComplaints("nodeback.png");
 	}
 	
 	// Auxilary method for loading images with "handled" errors
