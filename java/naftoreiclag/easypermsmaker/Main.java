@@ -27,6 +27,7 @@ import javax.swing.SpringLayout;
 import naftoreiclag.easypermsmaker.customswings.ClassNodePanel;
 import naftoreiclag.easypermsmaker.customswings.JPanelTextured;
 import naftoreiclag.easypermsmaker.utilities.SpringUtilities;
+import naftoreiclag.easypermsmaker.utilities.WinDecorat;
 
 import java.awt.Color;
 import java.io.File;
@@ -232,6 +233,14 @@ public class Main extends JFrame
 		
 		img_wallpaper = loadImageWithComplaints("wallpaper.png");
 		img_nodeback = loadImageWithComplaints("nodeback.png");
+		
+		WinDecorat.winSkin = loadImageWithComplaints("node.png");
+		WinDecorat.ai = 9;
+		WinDecorat.bi = 42;
+		WinDecorat.ci = 9;
+		WinDecorat.xi = 9;
+		WinDecorat.yi = 42;
+		WinDecorat.zi = 9;
 	}
 	
 	// Auxilary method for loading images with "handled" errors

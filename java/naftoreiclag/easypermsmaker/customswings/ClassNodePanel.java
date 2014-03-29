@@ -5,6 +5,8 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 
+import naftoreiclag.easypermsmaker.utilities.WinDecorat;
+
 @SuppressWarnings("serial")
 public class ClassNodePanel extends JPanel
 {
@@ -47,5 +49,7 @@ public class ClassNodePanel extends JPanel
 				graphics.drawImage(image, x, y, imageWidth, imageHeight, this);
 			}
 		}
+		
+		WinDecorat.drawWindowBoarder(graphics, 50, 50, 200, 100);
 	}
 }
