@@ -2,6 +2,7 @@ package naftoreiclag.easypermsmaker;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
 
@@ -25,6 +26,8 @@ public class SpecialPaint
 
 		BasicStroke thick = new BasicStroke(5.0f, BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER, 10.0f);
 
+		graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		graphics2D.setStroke(thick);
 		graphics2D.draw(curve);
 	}
