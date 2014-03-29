@@ -229,14 +229,14 @@ public class Main extends JFrame
 		img_wallpaper = loadImageWithComplaints("wallpaper.png");
 		img_nodeback = loadImageWithComplaints("nodeback.png");
 		
-		WinDecorat.node_light = loadImageWithComplaints("node_highlighted.png");
-		WinDecorat.node_dark = loadImageWithComplaints("node.png");
-		WinDecorat.ai = 9;
-		WinDecorat.bi = 42;
-		WinDecorat.ci = 9;
-		WinDecorat.xi = 9;
-		WinDecorat.yi = 42;
-		WinDecorat.zi = 9;
+		NodeDrawer.node_light = loadImageWithComplaints("node_highlighted.png");
+		NodeDrawer.node_dark = loadImageWithComplaints("node.png");
+		NodeDrawer.ai = 9;
+		NodeDrawer.bi = 42;
+		NodeDrawer.ci = 9;
+		NodeDrawer.xi = 9;
+		NodeDrawer.yi = 42;
+		NodeDrawer.zi = 9;
 	}
 	
 	// Auxilary method for loading images with "handled" errors

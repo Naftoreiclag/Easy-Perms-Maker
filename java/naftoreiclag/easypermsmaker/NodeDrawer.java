@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class WinDecorat
+public class NodeDrawer
 {
 	public static Image node_dark;
 	public static Image node_light;
@@ -20,8 +20,13 @@ public class WinDecorat
 	public static int yi;
 	public static int zi;
 	
-	public static void drawWindowBoarder(Graphics g, int x, int y, int width, int height, boolean highlighted)
+	public static void drawNode(Graphics g, int x, int y, int width, int height, boolean highlighted)
 	{
+		x -= 5;
+		y -= 5;
+		width += 10;
+		height += 10;
+		
 		Image imageToDraw = highlighted ? node_light : node_dark;
 		
 		int mw = (width - ai) - ci;
