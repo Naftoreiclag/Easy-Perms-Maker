@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.FontUIResource;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,8 +26,6 @@ import javax.swing.SpringLayout;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Enumeration;
 
 //I named this class "Main" just so java newbies can find the
 //main method faster! Aren't I so nice? :)

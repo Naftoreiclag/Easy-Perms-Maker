@@ -2,12 +2,6 @@ package naftoreiclag.easypermsmaker;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 public class NodeDrawer
 {

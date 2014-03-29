@@ -117,7 +117,6 @@ public class ClassNodePanel extends JPanel
 			for(PermClass p2 : p.inheritsFrom)
 			{
 				SpecialPaint.drawNodeConnection((Graphics2D) graphics, p.x + 30, p.y + 15, p2.x, p2.y + 15);
-				//graphics.drawLine(p.x + 30, p.y + 15, p2.x, p2.y + 15);
 			}
 		}
 		
