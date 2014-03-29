@@ -24,11 +24,6 @@ import java.awt.Image;
 
 import javax.swing.SpringLayout;
 
-import naftoreiclag.easypermsmaker.customswings.ClassNodePanel;
-import naftoreiclag.easypermsmaker.customswings.JPanelTextured;
-import naftoreiclag.easypermsmaker.utilities.SpringUtilities;
-import naftoreiclag.easypermsmaker.utilities.WinDecorat;
-
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -234,7 +229,8 @@ public class Main extends JFrame
 		img_wallpaper = loadImageWithComplaints("wallpaper.png");
 		img_nodeback = loadImageWithComplaints("nodeback.png");
 		
-		WinDecorat.winSkin = loadImageWithComplaints("node.png");
+		WinDecorat.node_light = loadImageWithComplaints("node_highlighted.png");
+		WinDecorat.node_dark = loadImageWithComplaints("node.png");
 		WinDecorat.ai = 9;
 		WinDecorat.bi = 42;
 		WinDecorat.ci = 9;

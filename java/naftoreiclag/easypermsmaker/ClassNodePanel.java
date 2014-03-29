@@ -1,18 +1,21 @@
-package naftoreiclag.easypermsmaker.customswings;
+package naftoreiclag.easypermsmaker;
 
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class JPanelTextured extends JPanel
+public class ClassNodePanel extends JPanel
 {
+	protected final JButton butt_newNode;
+	
 	public final Image image;
 	public final int imageWidth;
 	public final int imageHeight;
 
-	public JPanelTextured(Image image)
+	public ClassNodePanel(Image image)
 	{
 		super();
 		
@@ -28,6 +31,10 @@ public class JPanelTextured extends JPanel
 			this.imageWidth = 0;
 			this.imageHeight = 0;
 		}
+		
+		butt_newNode = new JButton("New Node");
+		
+		this.add(butt_newNode);
 	}
 
 	@Override
@@ -47,5 +54,8 @@ public class JPanelTextured extends JPanel
 				graphics.drawImage(image, x, y, imageWidth, imageHeight, this);
 			}
 		}
+		
+		WinDecorat.drawWindowBoarder(graphics, 50, 150, 200, 100, true);
+		WinDecorat.drawWindowBoarder(graphics, 50, 50, 200, 100, false);
 	}
 }
