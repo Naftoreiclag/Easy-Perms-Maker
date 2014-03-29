@@ -1,6 +1,7 @@
 package naftoreiclag.easypermsmaker;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -113,12 +114,16 @@ public class ClassNodePanel extends JPanel
 		
 		for(PermClass p : PermData.getData().classes)
 		{
-			NodeDrawer.drawNode(graphics, p.x, p.y, 30, 30, p == selectedOne);
-			
 			for(PermClass p2 : p.inheritsFrom)
 			{
-				graphics.drawLine(p.x, p.y, p2.x, p2.y);
+				SpecialPaint.drawNodeConnection((Graphics2D) graphics, p.x + 30, p.y + 15, p2.x, p2.y + 15);
+				//graphics.drawLine(p.x + 30, p.y + 15, p2.x, p2.y + 15);
 			}
+		}
+		
+		for(PermClass p : PermData.getData().classes)
+		{
+			NodeDrawer.drawNode(graphics, p.x, p.y, 30, 30, p == selectedOne);
 		}
 	}
 
@@ -156,6 +161,8 @@ public class ClassNodePanel extends JPanel
 			if(p != null)
 			{
 				selectedOne.inheritsFrom.add(p);
+				
+				this.repaint();
 			}
 		}
 		
