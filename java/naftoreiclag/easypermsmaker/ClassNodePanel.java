@@ -23,6 +23,8 @@ public class ClassNodePanel extends JPanel
 	private boolean rup;
 	
 	private PermClass selectedOne;
+	private int cox;
+	private int coy;
 	
 	protected final JButton butt_newNode;
 	
@@ -112,10 +114,12 @@ public class ClassNodePanel extends JPanel
 		for(PermClass p : PermData.getData().classes)
 		{
 			NodeDrawer.drawNode(graphics, p.x, p.y, 30, 30, p == selectedOne);
+			
+			for(PermClass p2 : p.inheritsFrom)
+			{
+				graphics.drawLine(p.x, p.y, p2.x, p2.y);
+			}
 		}
-		
-		NodeDrawer.drawNode(graphics, 50, 150, 200, 100, true);
-		NodeDrawer.drawNode(graphics, 50, 50, 200, 100, false);
 	}
 
 	public void mClicked(MouseEvent e){ }
@@ -139,10 +143,22 @@ public class ClassNodePanel extends JPanel
 		
 		System.out.println(e.getX() + "," + e.getY());
 		System.out.println(selectedOne);
+		
+		this.repaint();
 	}
 
 	public void mReleased(MouseEvent e)
 	{
+		if(rdown)
+		{
+			PermClass p = getClassUnderPoint(e.getX(), e.getY());
+			
+			if(p != null)
+			{
+				selectedOne.inheritsFrom.add(p);
+			}
+		}
+		
 		ldown = false;
 		mdown = false;
 		rdown = false;
@@ -154,12 +170,12 @@ public class ClassNodePanel extends JPanel
 		{
 			if(selectedOne != null)
 			{
-				selectedOne.x = e.getX();
-				selectedOne.y = e.getY();
+				selectedOne.x = e.getX() - cox;
+				selectedOne.y = e.getY() - coy;
+				
+				this.repaint();
 			}
 		}
-		
-		this.repaint();
 	}
 	
 	public PermClass getClassUnderPoint(int x, int y)
@@ -168,6 +184,9 @@ public class ClassNodePanel extends JPanel
 		{
 			if(x >= p.x && x <= p.x + 30 && y >= p.y && y <= p.y + 30)
 			{
+				
+				cox = x - p.x;
+				coy = y - p.y;
 				return p;
 			}
 		}
