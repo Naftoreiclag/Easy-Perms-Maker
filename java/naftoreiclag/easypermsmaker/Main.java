@@ -226,8 +226,12 @@ public class Main extends JFrame
 		img_wallpaper = loadImageWithComplaints("wallpaper.png");
 		img_nodeback = loadImageWithComplaints("nodeback.png");
 		
-		NodeDrawer.node_light = loadImageWithComplaints("node_highlighted.png");
-		NodeDrawer.node_dark = loadImageWithComplaints("node.png");
+		NodeDrawer.node_root = loadImageWithComplaints("node_highlighted.png");
+		NodeDrawer.node_normal = loadImageWithComplaints("node.png");
+		NodeDrawer.node_root = loadImageWithComplaints("node_root.png");
+		NodeDrawer.node_global = loadImageWithComplaints("node_global.png");
+		
+		
 		NodeDrawer.ai = 9;
 		NodeDrawer.bi = 42;
 		NodeDrawer.ci = 9;

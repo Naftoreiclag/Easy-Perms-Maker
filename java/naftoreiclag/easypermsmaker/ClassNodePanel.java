@@ -1,8 +1,10 @@
 package naftoreiclag.easypermsmaker;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -23,11 +25,16 @@ public class ClassNodePanel extends JPanel
 	private boolean mup;
 	private boolean rup;
 	
+	private int mx;
+	private int my;
+	
 	private PermClass selectedOne;
 	private int cox;
 	private int coy;
 	
 	protected final JButton butt_newNode;
+	
+	public Font font;
 	
 	public final Image image;
 	public final int imageWidth;
@@ -95,9 +102,11 @@ public class ClassNodePanel extends JPanel
 	}
 
 	@Override
-	public void paintComponent(Graphics graphics)
+	public void paintComponent(Graphics g)
 	{
-		super.paintComponent(graphics);
+		super.paintComponent(g);
+		
+		Graphics2D graphics = (Graphics2D) g;
 		
 		if(imageWidth == 0 || imageHeight == 0)
 		{
@@ -120,9 +129,26 @@ public class ClassNodePanel extends JPanel
 			}
 		}
 		
+
+		
+		if(selectedOne != null)
+		{
+			if(rdown)
+			{
+				SpecialPaint.drawNodeConnection((Graphics2D) graphics, selectedOne.x + 30, selectedOne.y + 15, mx, my);
+			}
+		}
+
 		for(PermClass p : PermData.getData().classes)
 		{
-			NodeDrawer.drawNode(graphics, p.x, p.y, 30, 30, p == selectedOne);
+			//(int) font.getStringBounds("Hello World", graphics.getFontRenderContext()).getWidth()
+			NodeDrawer.drawNode(graphics, p.x, p.y, 30, 30, NodeType.global, p == selectedOne);
+			//graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+			//		RenderingHints.VALUE_ANTIALIAS_ON);
+			//graphics.setFont(font);
+
+			//graphics.drawString("Hello World", p.x, p.y);
+
 		}
 	}
 
@@ -135,6 +161,8 @@ public class ClassNodePanel extends JPanel
 		ldown = false;
 		mdown = false;
 		rdown = false;
+		
+		this.repaint();
 	}
 
 	public void mPressed(MouseEvent e)
@@ -155,14 +183,36 @@ public class ClassNodePanel extends JPanel
 	{
 		if(rdown)
 		{
-			PermClass p = getClassUnderPoint(e.getX(), e.getY());
+			PermClass nodeToAdd = getClassUnderPoint(e.getX(), e.getY());
 			
-			if(p != null)
+			if(nodeToAdd != null)
 			{
-				selectedOne.inheritsFrom.add(p);
+				boolean shouldAdd = true;
 				
-				this.repaint();
+				if(nodeToAdd == selectedOne)
+				{
+					shouldAdd = false;
+				}
+				
+				for(PermClass is : selectedOne.inheritsFrom)
+				{
+					if(is == nodeToAdd)
+					{
+						shouldAdd = false;
+						
+						break;
+					}
+				}
+				
+				if(shouldAdd)
+				{
+					selectedOne.inheritsFrom.add(nodeToAdd);
+					
+					System.out.println("Add!");
+				}
 			}
+			
+			this.repaint();
 		}
 		
 		ldown = false;
@@ -172,6 +222,9 @@ public class ClassNodePanel extends JPanel
 	
 	public void mMove(MouseEvent e)
 	{
+		mx = e.getX();
+		my = e.getY();
+		
 		if(ldown)
 		{
 			if(selectedOne != null)
@@ -179,6 +232,13 @@ public class ClassNodePanel extends JPanel
 				selectedOne.x = e.getX() - cox;
 				selectedOne.y = e.getY() - coy;
 				
+				this.repaint();
+			}
+		}
+		if(rdown)
+		{
+			if(selectedOne != null)
+			{
 				this.repaint();
 			}
 		}
